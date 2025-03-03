@@ -52,5 +52,11 @@ def beregn():
     resultater = beregn_overførsler(data, kr_per_point)
     return jsonify(resultater)
 
+
+# 📌 Sørg for, at Flask serverer service worker korrekt
+@app.route('/service-worker.js')
+def service_worker():
+    return app.send_static_file('service-worker.js')
+
 if __name__ == '__main__':
     app.run(debug=True)
