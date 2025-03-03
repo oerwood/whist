@@ -5,11 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overførselsberegner</title>
 
+    <!-- Link til CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- iOS PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Overførselsberegner">
+    <link rel="apple-touch-icon" href="/static/icon-192.png">
+
+    <!-- PWA Installer Knap -->
     <button id="installButton" style="display: none;">Installér app</button>
 
-<!-- PWA Manifest -->
-<link rel="manifest" href="/manifest.json">
-    
+    <!-- Registrer Service Worker -->
+    <script>
+        window.onload = () => {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("/service-worker.js")
+                    .then(() => console.log("✅ Service Worker registreret!"))
+                    .catch((err) => console.error("❌ Service Worker fejlede:", err));
+            }
+        };
+    </script>
+
+    <script>
+        let deferredPrompt;
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            deferredPrompt = event;
+
+            // Vis installationsknappen
+            const installButton = document.getElementById("installButton");
+            installButton.style.display = "block";
+
+            installButton.addEventListener("click", () => {
+                installButton.style.display = "none"; // Skjul knappen
+                deferredPrompt.prompt(); // Vis installationsprompt
+
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === "accepted") {
+                        console.log("Bruger accepterede installationen");
+                    } else {
+                        console.log("Bruger afviste installationen");
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+
+        // Skjul knappen, hvis PWA allerede er installeret
+        window.addEventListener("appinstalled", () => {
+            console.log("Appen er installeret");
+            document.getElementById("installButton").style.display = "none";
+        });
+    </script>
+
     <script>
         function opdaterSpillerFelter() {
             let antalSpillere = parseInt(document.getElementById("antalSpillere").value);
@@ -57,54 +111,6 @@
     </script>
 </head>
 
-    <script>
-    let deferredPrompt;
-
-    window.addEventListener("beforeinstallprompt", (event) => {
-        // Stop standard install-prompten
-        event.preventDefault();
-
-        // Gem eventet, så vi kan bruge det senere
-        deferredPrompt = event;
-
-        // Vis installationsknappen
-        const installButton = document.getElementById("installButton");
-        installButton.style.display = "block";
-
-        // Når brugeren klikker på knappen
-        installButton.addEventListener("click", () => {
-            installButton.style.display = "none"; // Skjul knappen
-            deferredPrompt.prompt(); // Vis installationsprompt
-
-            // Håndter brugerens valg
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === "accepted") {
-                    console.log("Bruger accepterede installationen");
-                } else {
-                    console.log("Bruger afviste installationen");
-                }
-                deferredPrompt = null;
-            });
-        });
-    });
-
-    // Skjul knappen, hvis PWA allerede er installeret
-    window.addEventListener("appinstalled", () => {
-        console.log("Appen er installeret");
-        document.getElementById("installButton").style.display = "none";
-    });
-</script>
-
-<script>
-    window.onload = () => {
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("/service-worker.js")
-                .then(() => console.log("✅ Service Worker registreret!"))
-                .catch((err) => console.error("❌ Service Worker fejlede:", err));
-        }
-    };
-</script>
-    
 <body onload="opdaterSpillerFelter()">
     <h1>Indtast spillernes point</h1>
 
