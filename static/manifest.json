@@ -4,8 +4,8 @@
     "description": "Beregner overførsler mellem spillere",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#f8f9fa",
-    "theme_color": "#007bff",
+    "background_color": "#5500aa",
+    "theme_color": "#ffff00",
     "icons": [
         {
             "src": "/static/icon-192.png",
