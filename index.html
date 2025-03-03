@@ -9,15 +9,6 @@
 
 <!-- PWA Manifest -->
 <link rel="manifest" href="/manifest.json">
-
-<!-- Registrer Service Worker -->
-<script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js")
-            .then(() => console.log("Service Worker registreret!"))
-            .catch((err) => console.log("Service Worker fejlede:", err));
-    }
-</script>
     
     <script>
         function opdaterSpillerFelter() {
@@ -102,6 +93,16 @@
         console.log("Appen er installeret");
         document.getElementById("installButton").style.display = "none";
     });
+</script>
+
+<script>
+    window.onload = () => {
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js")
+                .then(() => console.log("✅ Service Worker registreret!"))
+                .catch((err) => console.error("❌ Service Worker fejlede:", err));
+        }
+    };
 </script>
     
 <body onload="opdaterSpillerFelter()">
