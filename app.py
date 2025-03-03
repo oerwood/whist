@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 def beregn_overførsler(point_dict, kr_per_point):
     spillere = point_dict
@@ -43,6 +44,11 @@ def beregn_overførsler(point_dict, kr_per_point):
 def index():
     return render_template('index.html')
 
+# 📌 Server manifest.json korrekt
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory(app.static_folder, 'manifest.json')
+
 @app.route('/beregn', methods=['POST'])
 def beregn():
     data = request.json
@@ -57,10 +63,6 @@ def beregn():
 @app.route('/service-worker.js')
 def service_worker():
     return app.send_static_file('service-worker.js')
-
-@app.route('/manifest.json')
-def manifest():
-    return send_from_directory('static', 'manifest.json')
 
 if __name__ == '__main__':
     app.run(debug=True)
