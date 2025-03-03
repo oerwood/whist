@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overførselsberegner</title>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+<!-- Registrer Service Worker -->
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/static/service-worker.js")
+            .then(() => console.log("Service Worker registreret!"))
+            .catch((err) => console.log("Service Worker fejlede:", err));
+    }
+</script>
+    
     <script>
         function opdaterSpillerFelter() {
             let antalSpillere = parseInt(document.getElementById("antalSpillere").value);
