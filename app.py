@@ -58,5 +58,9 @@ def beregn():
 def service_worker():
     return app.send_static_file('service-worker.js')
 
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory('static', 'manifest.json')
+
 if __name__ == '__main__':
     app.run(debug=True)
