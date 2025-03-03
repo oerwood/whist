@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overførselsberegner</title>
+
+    <button id="installButton" style="display: none;">Installér app</button>
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+    
+    <script>
+        function opdaterSpillerFelter() {
+            let antalSpillere = parseInt(document.getElementById("antalSpillere").value);
+            let spillerContainer = document.getElementById("spillereContainer");
+            spillerContainer.innerHTML = ""; // Ryd eksisterende inputfelter
+
+            for (let i = 1; i <= antalSpillere; i++) {
+                let label = document.createElement("label");
+                label.innerHTML = `Navn for Spiller ${i}: <input type="text" id="spillerNavn${i}" placeholder="Spiller ${i}">`;
+                spillerContainer.appendChild(label);
+                spillerContainer.appendChild(document.createElement("br"));
+
+                let pointLabel = document.createElement("label");
+                pointLabel.innerHTML = `Point for ${i}: <input type="number" id="spiller${i}" value="0">`;
+                spillerContainer.appendChild(pointLabel);
+                spillerContainer.appendChild(document.createElement("br"));
+            }
+        }
+
+        function beregnOverførsler() {
+            let antalSpillere = parseInt(document.getElementById("antalSpillere").value);
+            let krPerPoint = parseFloat(document.getElementById("kr_per_point").value);
+            let spillere = { "kr_per_point": krPerPoint };
+
+            for (let i = 1; i <= antalSpillere; i++) {
+                let navn = document.getElementById(`spillerNavn${i}`).value.trim();
+                if (navn === "") navn = `Spiller ${i}`; // Standardnavn hvis feltet er tomt
+                spillere[navn] = parseInt(document.getElementById(`spiller${i}`).value);
+            }
+
+            fetch('/beregn', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(spillere)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let resultDiv = document.getElementById("resultat");
+                resultDiv.innerHTML = "<h2>Overførsler:</h2>";
+                data.forEach(item => {
+                    resultDiv.innerHTML += `<p>${item.Fra} → ${item.Til}: ${item.Beløb.toFixed(2)} kr.</p>`;
+                });
+            });
+        }
+    </script>
+</head>
+
+    <script>
+    let deferredPrompt;
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+        // Stop standard install-prompten
+        event.preventDefault();
+
+        // Gem eventet, så vi kan bruge det senere
+        deferredPrompt = event;
+
+        // Vis installationsknappen
+        const installButton = document.getElementById("installButton");
+        installButton.style.display = "block";
+
+        // Når brugeren klikker på knappen
+        installButton.addEventListener("click", () => {
+            installButton.style.display = "none"; // Skjul knappen
+            deferredPrompt.prompt(); // Vis installationsprompt
+
+            // Håndter brugerens valg
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === "accepted") {
+                    console.log("Bruger accepterede installationen");
+                } else {
+                    console.log("Bruger afviste installationen");
+                }
+                deferredPrompt = null;
+            });
+        });
+    });
+
+    // Skjul knappen, hvis PWA allerede er installeret
+    window.addEventListener("appinstalled", () => {
+        console.log("Appen er installeret");
+        document.getElementById("installButton").style.display = "none";
+    });
+</script>
+
+<script>
+    window.onload = () => {
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js")
+                .then(() => console.log("✅ Service Worker registreret!"))
+                .catch((err) => console.error("❌ Service Worker fejlede:", err));
+        }
+    };
+</script>
+    
+<body onload="opdaterSpillerFelter()">
+    <h1>Indtast spillernes point</h1>
+
+    <label>Antal spillere: 
+        <input type="number" id="antalSpillere" value="6" min="3" max="8" onchange="opdaterSpillerFelter()">
+    </label>
+    <br><br>
+
+    <div id="spillereContainer"></div>
+
+    <h2>Beløb pr. point:</h2>
+    <label>Kr. pr. point: <input type="number" id="kr_per_point" value="2" step="0.1"></label><br><br>
+
+    <button onclick="beregnOverførsler()">Beregn</button>
+
+    <div id="resultat"></div>
+</body>
+</html>
