@@ -75,7 +75,7 @@
                 row.classList.add("input-row");
 
                 let label = document.createElement("label");
-                label.innerHTML = `Navn på Spiller ${i}:`;
+                label.innerHTML = `Navn for Spiller ${i}:`;
                 row.appendChild(label);
 
                 let input = document.createElement("input");
@@ -90,7 +90,7 @@
                 pointRow.classList.add("input-row");
 
                 let pointLabel = document.createElement("label");
-                pointLabel.innerHTML = `Point Spiller ${i}:`;
+                pointLabel.innerHTML = `Point for ${i}:`;
                 pointRow.appendChild(pointLabel);
 
                 let pointInput = document.createElement("input");
@@ -132,7 +132,11 @@
 </head>
 
 <body onload="opdaterSpillerFelter()">
-    <h1>Sikkert & Whist'</h1>
+    
+    <!-- Erstatning for H1 - Logo -->
+    <div class="logo-container">
+        <img src="/static/logo.svg" alt="Sikkert & Whist" class="logo">
+    </div>
 
     <div class="form-container">
         <div class="input-row">
