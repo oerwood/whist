@@ -22,7 +22,7 @@ body {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Label + input layout */
+/* Flexbox layout for labels og input */
 .input-row {
     display: flex;
     justify-content: space-between;
@@ -31,23 +31,23 @@ body {
     margin-bottom: 10px;
 }
 
-/* Labels */
+/* Labels justeres til venstre */
 label {
-    width: 150px; /* Fast bredde for labels, så alt er venstrejusteret */
+    width: 150px; /* Fast bredde for labels, så de er venstrejusterede */
     text-align: left;
     font-weight: bold;
     color: #333;
 }
 
-/* Inputfelter */
+/* Inputfelter justeres til højre */
 input {
-    flex: 1; /* Inputfelter fylder resten af linjen */
+    flex-grow: 1; /* Inputfelter fylder resten af linjen */
+    max-width: 120px; /* Sikrer, at inputfelterne er på linje */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     text-align: right;
-    width: 100px;
 }
 
 /* Knapper */
