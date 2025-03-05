@@ -17,7 +17,7 @@ body {
     max-width: 400px; /* Holder bredden stabil */
     margin: 20px auto;
     padding: 20px;
-    background: DEB62D;
+    background: #DEB62D;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
