@@ -14,7 +14,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 400px; /* Begræns bredden for et pænt layout */
+    max-width: 400px; /* Begrænser bredden for et pænt layout */
     margin: 20px auto;
     padding: 20px;
     background: white;
@@ -33,7 +33,7 @@ body {
 
 /* Labels */
 label {
-    flex: 1; /* Labels fylder til venstre */
+    width: 150px; /* Fast bredde for labels, så alt er venstrejusteret */
     text-align: left;
     font-weight: bold;
     color: #333;
@@ -41,7 +41,7 @@ label {
 
 /* Inputfelter */
 input {
-    flex: 1; /* Inputfelter fylder til højre */
+    flex: 1; /* Inputfelter fylder resten af linjen */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
