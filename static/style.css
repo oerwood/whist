@@ -7,6 +7,14 @@ body {
     padding: 0;
 }
 
+H1 {
+    font-family: Comic sans, sans-serif;
+    text-align: center;
+    color: #8C07BD;
+}
+
+
+
 /* Centreret container */
 .form-container {
     display: flex;
