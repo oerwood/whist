@@ -17,7 +17,7 @@ body {
     max-width: 400px; /* Holder bredden stabil */
     margin: 20px auto;
     padding: 20px;
-    background: #DEB62D;
+    background: #8C07BD;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -35,14 +35,14 @@ label {
     width: 160px; /* Ensartet bredde for labels */
     text-align: left;
     font-weight: bold;
-    color: #8C07BD;
+    color: #DEB62D;
 }
 
 /* Inputfelter justeret til højre og gjort mindre */
 input {
     width: 50%; /* Mindre bredde: 50% af den oprindelige størrelse */
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #DEB62D;
     border-radius: 5px;
     font-size: 16px;
     text-align: right;
@@ -50,8 +50,8 @@ input {
 
 /* Knapper */
 button {
-    background-color: #8C07BD;
-    color: white;
+    background-color: #DEB62D;
+    color: #8C07BD;
     border: none;
     padding: 10px 20px;
     font-size: 18px;
