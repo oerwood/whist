@@ -83,3 +83,17 @@ button[onclick="beregnOverførsler()"] {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* Logo styling */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 80%; /* Sikrer, at logoet ikke er for stort */
+    height: auto; /* Bevarer billedets proportioner */
+}
+
