@@ -40,7 +40,7 @@ label {
 
 /* Inputfelter justeret til højre og gjort mindre */
 input {
-    width: 66%; /* Mindre bredde: 2/3 af den oprindelige størrelse */
+    width: 50%; /* Mindre bredde: 50% af den oprindelige størrelse */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
