@@ -71,15 +71,35 @@
             spillerContainer.innerHTML = ""; // Ryd eksisterende inputfelter
 
             for (let i = 1; i <= antalSpillere; i++) {
+                let row = document.createElement("div");
+                row.classList.add("input-row");
+
                 let label = document.createElement("label");
-                label.innerHTML = `Navn for Spiller ${i}: <input type="text" id="spillerNavn${i}" placeholder="Spiller ${i}">`;
-                spillerContainer.appendChild(label);
-                spillerContainer.appendChild(document.createElement("br"));
+                label.innerHTML = `Navn for Spiller ${i}:`;
+                row.appendChild(label);
+
+                let input = document.createElement("input");
+                input.type = "text";
+                input.id = `spillerNavn${i}`;
+                input.placeholder = `Spiller ${i}`;
+                row.appendChild(input);
+
+                spillerContainer.appendChild(row);
+
+                let pointRow = document.createElement("div");
+                pointRow.classList.add("input-row");
 
                 let pointLabel = document.createElement("label");
-                pointLabel.innerHTML = `Point for ${i}: <input type="number" id="spiller${i}" value="0">`;
-                spillerContainer.appendChild(pointLabel);
-                spillerContainer.appendChild(document.createElement("br"));
+                pointLabel.innerHTML = `Point for ${i}:`;
+                pointRow.appendChild(pointLabel);
+
+                let pointInput = document.createElement("input");
+                pointInput.type = "number";
+                pointInput.id = `spiller${i}`;
+                pointInput.value = "0";
+                pointRow.appendChild(pointInput);
+
+                spillerContainer.appendChild(pointRow);
             }
         }
 
@@ -114,17 +134,21 @@
 <body onload="opdaterSpillerFelter()">
     <h1>Indtast spillernes point</h1>
 
-    <label>Antal spillere: 
-        <input type="number" id="antalSpillere" value="6" min="3" max="8" onchange="opdaterSpillerFelter()">
-    </label>
-    <br><br>
+    <div class="form-container">
+        <div class="input-row">
+            <label for="antalSpillere">Antal spillere:</label>
+            <input type="number" id="antalSpillere" value="6" min="3" max="8" onchange="opdaterSpillerFelter()">
+        </div>
 
-    <div id="spillereContainer"></div>
+        <div id="spillereContainer"></div>
 
-    <h2>Beløb pr. point:</h2>
-    <label>Kr. pr. point: <input type="number" id="kr_per_point" value="2" step="0.1"></label><br><br>
+        <div class="input-row">
+            <label for="kr_per_point">Kr. pr. point:</label>
+            <input type="number" id="kr_per_point" value="2" step="0.1">
+        </div>
 
-    <button onclick="beregnOverførsler()">Beregn</button>
+        <button onclick="beregnOverførsler()">Beregn</button>
+    </div>
 
     <div id="resultat"></div>
 </body>
