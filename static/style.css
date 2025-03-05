@@ -25,7 +25,6 @@ body {
 /* Række layout til labels + input */
 .input-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     margin-bottom: 10px;
@@ -41,8 +40,7 @@ label {
 
 /* Inputfelter justeret til højre */
 input {
-    flex-grow: 1; /* Sørger for at inputfelterne passer */
-    max-width: 140px; /* Holder inputfelterne ens */
+    width: 100%; /* Gør inputfelterne ens */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
