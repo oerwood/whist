@@ -1,11 +1,11 @@
 {
-    "name": "Overførselsberegner",
-    "short_name": "Overfør",
+    "name": "Sikkert & Whist",
+    "short_name": "Sikkert & Whist",
     "description": "Beregner overførsler mellem spillere",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#5500aa",
-    "theme_color": "#ffff00",
+    "background_color": "#005445",
+    "theme_color": "#005445",
     "icons": [
         {
             "src": "/static/icon-192.png",
